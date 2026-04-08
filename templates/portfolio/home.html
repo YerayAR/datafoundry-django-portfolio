@@ -1,0 +1,117 @@
+{% extends "portfolio/base.html" %}
+
+{% block title %}DataFoundry | Django Data Portfolio{% endblock %}
+
+{% block content %}
+<main>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Backend Portfolio / Python + Django</p>
+        <h1>Data products, automation flows, and analytics APIs presented as a real backend case study.</h1>
+        <p class="hero-text">This portfolio is designed to show more than visuals. It demonstrates how I structure case studies, expose data through endpoints, and think about backend systems that can evolve into production products.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#case-studies">Explore Case Studies</a>
+          <a class="button button-secondary" href="{% url 'api-snapshot' %}">Open Snapshot API</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <p class="panel-kicker">Platform Snapshot</p>
+        <div class="metric-stack">
+          <div class="metric-tile">
+            <span>Hours Saved / month</span>
+            <strong>{{ snapshot.hours_saved_month }}</strong>
+          </div>
+          <div class="metric-tile">
+            <span>Avg accuracy gain</span>
+            <strong>{{ snapshot.average_accuracy_gain }}%</strong>
+          </div>
+          <div class="metric-tile">
+            <span>Avg throughput gain</span>
+            <strong>{{ snapshot.average_throughput_gain }}%</strong>
+          </div>
+          <div class="metric-tile">
+            <span>Case studies</span>
+            <strong>{{ snapshot.projects }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="metrics-band">
+    <div class="shell metrics-grid">
+      {% for metric in metrics %}
+      <article class="band-card">
+        <span>{{ metric.label }}</span>
+        <strong>{{ metric.value }}</strong>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="case-studies" class="section">
+    <div class="shell">
+      <div class="section-heading">
+        <p class="eyebrow">Selected Work</p>
+        <h2>Case studies built around data operations and backend delivery.</h2>
+      </div>
+      <div class="case-grid">
+        {% for item in case_studies %}
+        <article class="case-card">
+          <p class="card-tag">{{ item.tag }}</p>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.summary }}</p>
+          <ul class="stack-list">
+            {% for tool in item.stack %}
+            <li>{{ tool }}</li>
+            {% endfor %}
+          </ul>
+          <div class="impact-grid">
+            <div><span>Hours</span><strong>{{ item.impact.hours_saved_month }}h</strong></div>
+            <div><span>Accuracy</span><strong>+{{ item.impact.accuracy_gain }}%</strong></div>
+            <div><span>Throughput</span><strong>+{{ item.impact.throughput_gain }}%</strong></div>
+          </div>
+          <a class="text-link" href="{% url 'case-study' item.slug %}">Read case study</a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="pipeline" class="section pipeline-section">
+    <div class="shell pipeline-grid">
+      <div class="pipeline-copy">
+        <p class="eyebrow">Delivery Model</p>
+        <h2>A portfolio that behaves like a lightweight data platform.</h2>
+        <p>The site uses Django templates for content structure and JSON endpoints for machine-readable portfolio data. That means the portfolio can work both as a presentation layer and as a backend demonstration.</p>
+      </div>
+      <div class="pipeline-panel">
+        {% for step in pipeline_steps %}
+        <div class="pipeline-step">
+          <span>0{{ forloop.counter }}</span>
+          <p>{{ step }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="api" class="section">
+    <div class="shell api-grid">
+      <div class="api-card">
+        <p class="eyebrow">API Surface</p>
+        <h2>Public demo endpoints</h2>
+        <ul class="endpoint-list">
+          <li><code>/api/snapshot/</code><span>Current platform metrics and summary snapshot.</span></li>
+          <li><code>/api/case-studies/</code><span>Structured case study dataset for frontend or external consumption.</span></li>
+        </ul>
+      </div>
+      <div class="api-card response-card">
+        <p class="eyebrow">Live Response</p>
+        <pre id="api-preview">Loading snapshot...</pre>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

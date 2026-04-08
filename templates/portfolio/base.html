@@ -1,0 +1,41 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Portfolio Backend{% endblock %}</title>
+  <meta name="description" content="Django portfolio focused on data systems, analytics workflows, and backend-driven product thinking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+  <div class="grid-glow"></div>
+  <header class="site-header">
+    <div class="shell nav-shell">
+      <a class="brand" href="{% url 'home' %}">Data<span>Foundry</span></a>
+      <nav class="site-nav">
+        <a href="{% url 'home' %}#case-studies">Case Studies</a>
+        <a href="{% url 'home' %}#pipeline">Pipeline</a>
+        <a href="{% url 'home' %}#api">API</a>
+      </nav>
+    </div>
+  </header>
+  {% block content %}{% endblock %}
+  <footer class="site-footer">
+    <div class="shell footer-shell">
+      <div>
+        <p class="footer-label">Portfolio Backend</p>
+        <strong>Django + Python + Data Product Thinking</strong>
+      </div>
+      <div class="footer-links">
+        <a href="{% url 'api-snapshot' %}">Snapshot API</a>
+        <a href="{% url 'api-case-studies' %}">Case Studies API</a>
+      </div>
+    </div>
+  </footer>
+  <script src="{% static 'js/site.js' %}"></script>
+</body>
+</html>

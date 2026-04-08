@@ -64,13 +64,14 @@ PIPELINE_STEPS = [
 ]
 
 
-def aggregate_snapshot():
-    hours = sum(item["impact"]["hours_saved_month"] for item in CASE_STUDIES)
-    accuracy = round(mean(item["impact"]["accuracy_gain"] for item in CASE_STUDIES), 1)
-    throughput = round(mean(item["impact"]["throughput_gain"] for item in CASE_STUDIES), 1)
+def aggregate_snapshot(case_studies=None):
+    source = case_studies or CASE_STUDIES
+    hours = sum(item["impact"]["hours_saved_month"] for item in source)
+    accuracy = round(mean(item["impact"]["accuracy_gain"] for item in source), 1)
+    throughput = round(mean(item["impact"]["throughput_gain"] for item in source), 1)
     return {
         "hours_saved_month": hours,
         "average_accuracy_gain": accuracy,
         "average_throughput_gain": throughput,
-        "projects": len(CASE_STUDIES),
+        "projects": len(source),
     }

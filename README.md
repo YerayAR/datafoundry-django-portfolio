@@ -33,6 +33,13 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
+Optional seed for admin-backed content:
+
+```powershell
+python manage.py migrate
+python populate_db.py
+```
+
 ## Why this project exists
 
 This portfolio is meant to show a stronger backend profile than a static one-page site. It presents project outcomes, process design, and API output in one deployable Django app that can be shown publicly.
